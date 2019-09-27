@@ -1,0 +1,229 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2",
+    "signature": "f244f0ae971099b3c139dd0329b4ca30cc04baaa"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {
+      "Triangle/1.0.0": {
+        "dependencies": {
+          "Magick.NET-Q16-AnyCPU": "7.14.3",
+          "Microsoft.Experimental.Collections": "1.0.6-e190117-3",
+          "System.Collections": "4.3.0",
+          "System.Drawing.Common": "4.5.1",
+          "PresentationCore": "4.0.0.0"
+        },
+        "runtime": {
+          "Triangle.dll": {}
+        }
+      },
+      "Magick.NET-Q16-AnyCPU/7.14.3": {
+        "runtime": {
+          "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll": {
+            "assemblyVersion": "7.14.3.0",
+            "fileVersion": "7.14.3.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/Magick.Native-Q16-x64.dll.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/Magick.Native-Q16-x64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "7.0.8.62"
+          },
+          "runtimes/win-x86/native/Magick.Native-Q16-x86.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "7.0.8.62"
+          }
+        }
+      },
+      "Microsoft.Experimental.Collections/1.0.6-e190117-3": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Experimental.Collections.dll": {
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
+          }
+        }
+      },
+      "Microsoft.Win32.SystemEvents/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "System.Collections/4.3.0": {
+        "dependencies": {
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Drawing.Common/4.5.1": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          },
+          "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          }
+        }
+      },
+      "System.Runtime/4.3.0": {},
+      "PresentationCore/4.0.0.0": {
+        "runtime": {
+          "PresentationCore.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.8.3815.0"
+          }
+        },
+        "resources": {
+          "nl/PresentationCore.resources.dll": {
+            "locale": "nl"
+          }
+        }
+      },
+      "UIAutomationTypes/4.0.0.0": {
+        "runtime": {
+          "UIAutomationTypes.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.8.3815.0"
+          }
+        },
+        "resources": {
+          "nl/UIAutomationTypes.resources.dll": {
+            "locale": "nl"
+          }
+        }
+      },
+      "System.Windows.Input.Manipulations/4.0.0.0": {
+        "runtime": {
+          "System.Windows.Input.Manipulations.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.8.3752.0"
+          }
+        },
+        "resources": {
+          "nl/System.Windows.Input.Manipulations.resources.dll": {
+            "locale": "nl"
+          }
+        }
+      },
+      "UIAutomationProvider/4.0.0.0": {
+        "runtime": {
+          "UIAutomationProvider.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.8.3815.0"
+          }
+        },
+        "resources": {
+          "nl/UIAutomationProvider.resources.dll": {
+            "locale": "nl"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Triangle/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Magick.NET-Q16-AnyCPU/7.14.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GffJeN0ZJ5wOlUfr0V9EQVcSbS/tue+vWWM8QH+DPKXgaa46ym5hlyvx0J229D4xNlf0h7sYSvspe+U1I9Kyzw==",
+      "path": "magick.net-q16-anycpu/7.14.3",
+      "hashPath": "magick.net-q16-anycpu.7.14.3.nupkg.sha512"
+    },
+    "Microsoft.Experimental.Collections/1.0.6-e190117-3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-S2IfWAo5bnXSgpr8o0LR3aMqo7QD83VQUPbgta6aOYIBq8M85Hpk8hVUco22GFhSRuf4ZhP8jUs2wPlO0Dbdow==",
+      "path": "microsoft.experimental.collections/1.0.6-e190117-3",
+      "hashPath": "microsoft.experimental.collections.1.0.6-e190117-3.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LuI1oG+24TUj1ZRQQjM5Ew73BKnZE5NZ/7eAdh1o8ST5dPhUnJvIkiIn2re3MwnkRy6ELRnvEbBxHP8uALKhJw==",
+      "path": "microsoft.win32.systemevents/4.5.0",
+      "hashPath": "microsoft.win32.systemevents.4.5.0.nupkg.sha512"
+    },
+    "System.Collections/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3Dcj85/TBdVpL5Zr+gEEBUuFe2icOnLalmEh9hfck1PTYbbyWuZgh4fmm2ysCLTrqLQw6t3TgTyJ+VLp+Qb+Lw==",
+      "path": "system.collections/4.3.0",
+      "hashPath": "system.collections.4.3.0.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GiyeGi/v4xYDz1vCNFwFvhz9k1XddOG7VD3jxRqzRBCbTHji+s3HxxbxtoymuK4OadEpgotI8zQ5+GEEH9sUEQ==",
+      "path": "system.drawing.common/4.5.1",
+      "hashPath": "system.drawing.common.4.5.1.nupkg.sha512"
+    },
+    "System.Runtime/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
+      "path": "system.runtime/4.3.0",
+      "hashPath": "system.runtime.4.3.0.nupkg.sha512"
+    },
+    "PresentationCore/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UIAutomationTypes/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Windows.Input.Manipulations/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UIAutomationProvider/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
