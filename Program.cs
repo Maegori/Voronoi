@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using ImageMagick;
 
 
 namespace Triangle
@@ -25,6 +24,11 @@ namespace Triangle
         public static Bitmap new_img;
         public static int height;
         public static int width;
+        public static int xlen = 0;
+        public static int ylen = 0;
+        public static Point[,] mat = new Point[1, 1];
+        // this makes sure that all regions are the same size(not different at edges)
+        public static int filler = 100;
         private static readonly Point[] p = {
             new Point(-1, -1),
             new Point(0, -1),
@@ -64,7 +68,7 @@ namespace Triangle
             }while (!(0 < Int32.Parse(dens) && Int32.Parse(dens) <= 100));
             string NewFileName = filename[0] + dens + "." + filename[1];  
 
-            List<String> options = new List<String> {"single", "gif"};
+            List<String> options = new List<String> {"single", "gif", "debug"};
             string ops = "single";
             do{
                 Console.Write("Options(only single available): ");
@@ -72,8 +76,8 @@ namespace Triangle
             }while (!(options.Contains(ops)));
 
             Tuple<int, int> ar = calculate_aspect(dens, width, height);
-            decimal dxlen = Convert.ToDecimal(width) / Convert.ToDecimal(ar.Item1);
-            decimal dylen = Convert.ToDecimal(height) / Convert.ToDecimal(ar.Item2);
+            decimal dxlen = Convert.ToDecimal(width + filler) / Convert.ToDecimal(ar.Item1);
+            decimal dylen = Convert.ToDecimal(height + filler) / Convert.ToDecimal(ar.Item2);
             int xlen = Convert.ToInt32(Math.Round(dxlen));
             int ylen = Convert.ToInt32(Math.Round(dylen));
 
@@ -84,7 +88,6 @@ namespace Triangle
             Console.WriteLine("# Voronoi Sites: {0}", xlen * ylen);
             Console.WriteLine("Cell Size(x, y): {0}, {1}", ar.Item1, ar.Item2);
 
-            MagickNET.SetTempDirectory("output");
 
             if ( ops == "single"){
                 new_img = voroniser(bmp, dens, ar, xlen, ylen);
@@ -98,21 +101,10 @@ namespace Triangle
                 }
                 
                 Console.WriteLine("Creating GIF...");                
-                using (MagickImageCollection collection = new MagickImageCollection()){
-                    for (int i = 0; i < 1; i++){
-
-                        using (MagickImage MI_frame = new MagickImage()){
-                            Byte[] frame = BMP_ToBytes(bmp_array[i]); 
-                            MI_frame.Read(frame);
-                            collection.Add(MI_frame);
-                            collection[i].AnimationDelay = 33;
-                            Console.WriteLine(frame[i]);
-                        }
-                    }
-                    collection.Write(@"testoutput\test.gif");
-
-                }
-                       
+            }
+            else if (ops == "debug"){
+                Bitmap temp_img = voroniser(bmp, dens, ar, xlen, ylen);
+                new_img = debug_painter(temp_img);
             }
             
             Directory.CreateDirectory("output");
@@ -123,14 +115,6 @@ namespace Triangle
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
 
-        }
-
-        static Byte[] BMP_ToBytes(Bitmap bmp)
-        {
-            using (MemoryStream stream = new MemoryStream()){
-                bmp.Save(stream, ImageFormat.Bmp);
-                return stream.ToArray();
-            }
         }
 
         static Bitmap voroniser(Bitmap bmp, string dens, Tuple<int, int> ar, int xlen, int ylen)
@@ -149,49 +133,37 @@ namespace Triangle
         //returns a tweaked aspect ratio which determines the size of each cell in the voronoi matrix(mat)
         static Tuple<int, int> calculate_aspect(string dens, int width, int height)
         {
-            int res = Int32.Parse(dens);
+            Decimal res = Decimal.Parse(dens);
 
-            int r = gcd(width, height); int x = width / r; int y = height / r;
+            decimal Dec_x = Convert.ToDecimal(width + filler) / Convert.ToDecimal(100);
+            decimal Dec_y = Convert.ToDecimal(height + filler) / Convert.ToDecimal(100);
+            decimal x = Math.Ceiling(Dec_x);
+            decimal y = Math.Ceiling(Dec_y);
 
-            //TODO: fix the aspect ratio for irregular sizes(placeholder for mona.jpg)
-            if (x == width){
-                Console.WriteLine();
-                Console.WriteLine("Irregular image size.");
-                return Tuple.Create(100 / res * 9 , 100 / res * 5);
-            }
-
-            return Tuple.Create(100 / res * x , 100 / res * y);
+            return Tuple.Create(Convert.ToInt32(100 / res * x) ,Convert.ToInt32(100 / res * y));
         }
 
-        //slave function for calculate_aspect
-        static int gcd(int a, int b)
-        {
-            if (b == 0) {
-                return a;
-            }
-            else{
-                return gcd(b, (a % b));
-            }
-        }
 
         //returns an array representing the image containing the voronoi sites
         static Point[,] point_generator(Tuple<int, int> ar, int xlen, int ylen)
         {
             int height_c = 0;
-            Point[,] mat = new Point[xlen, ylen];
+            Point[,] mat = new Point[ylen + 1, xlen + 1];
             Random rnd = new Random();
+            int x_offset = ar.Item1;
+            int y_offset = ar.Item2;
 
             //creates a random coordinate within the bounds of the array cell determined by the aspect ratio
-            for (int y = 0; y < ylen; y++){
+            for (int y = 0; y < ylen + 1; y++){
                 int width_c = 0;
-                for (int x = 0; x < xlen; x++){
-                    int rnd_w = rnd.Next(width_c, width_c + ar.Item1);
-                    int rnd_h = rnd.Next(height_c, height_c + ar.Item2);
+                for (int x = 0; x < xlen + 1; x++){
+                    int rnd_w = rnd.Next(width_c, width_c + x_offset);
+                    int rnd_h = rnd.Next(height_c, height_c + y_offset);
                     Point vorsite = new Point(rnd_w, rnd_h);
                     mat[y, x] = vorsite;
-                    width_c = ar.Item1 * x;
+                    width_c = x_offset * x;
                 }
-                height_c = ar.Item2 * y;
+                height_c = y_offset * y;
             }
             return mat;
         }
@@ -260,7 +232,7 @@ namespace Triangle
             for (int y = 0; y < height; y++){
                 for (int x = 0; x < width; x++){
                     Point pixel = new Point(x, y);
-                    Color color = bmp.GetPixel(x, y);
+                    Color color = bmp.GetPixel(x, y); 
                     Point region = closest_to(pixel, mat, ar, xlen, ylen);
 
                     vor.Add(region, pixel);
@@ -308,5 +280,17 @@ namespace Triangle
             return img;
         }
 
+        static Bitmap debug_painter(Bitmap img)
+        {
+            Color col = Color.FromArgb(0, 0, 0);
+
+            for (int y = 0; y < ylen + 1; y++){
+                for (int x = 0; x < xlen + 1; x++){
+                    Point pixel = mat[y, x];
+                    img.SetPixel(pixel.X, pixel.Y, col);
+                }
+            }
+            return img;
+        }
     }
 }
