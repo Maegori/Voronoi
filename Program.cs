@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using NReco.VideoConverter;
 
 
 namespace Triangle
@@ -93,14 +94,18 @@ namespace Triangle
                 new_img = voroniser(bmp, dens, ar, xlen, ylen);
             }
             else if (ops == "gif"){
-                Bitmap[] bmp_array = new Bitmap[1];
+                Bitmap[] bmp_array = new Bitmap[5];
 
-                for (int i = 0; i < 1; i++){
-                    Console.WriteLine("{0}/50", i + 1);
+                for (int i = 0; i < 5; i++){
+                    Console.WriteLine("{0}/5", i + 1);
                     bmp_array[i] = voroniser(bmp, dens, ar, xlen, ylen);
                 }
                 
-                Console.WriteLine("Creating GIF...");                
+                Console.WriteLine("Creating GIF...");
+                
+                    
+
+
             }
             else if (ops == "debug"){
                 Bitmap temp_img = voroniser(bmp, dens, ar, xlen, ylen);
@@ -109,8 +114,8 @@ namespace Triangle
             
             Directory.CreateDirectory("output");
             new_img.Save(@"output\" + NewFileName);
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("All done, image written to {0}", NewFileName);
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
