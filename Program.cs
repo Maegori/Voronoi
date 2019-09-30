@@ -3,8 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using NReco.VideoConverter;
-
 
 namespace Triangle
 {
@@ -69,10 +67,10 @@ namespace Triangle
             }while (!(0 < Int32.Parse(dens) && Int32.Parse(dens) <= 100));
             string NewFileName = filename[0] + dens + "." + filename[1];  
 
-            List<String> options = new List<String> {"single", "gif", "debug"};
+            List<String> options = new List<String> {"single", "gif"};
             string ops = "single";
             do{
-                Console.Write("Options(only single available): ");
+                Console.Write("Options(single, gif): ");
                 ops = Console.ReadLine();
             }while (!(options.Contains(ops)));
 
@@ -92,34 +90,43 @@ namespace Triangle
 
             if ( ops == "single"){
                 new_img = voroniser(bmp, dens, ar, xlen, ylen);
+                save(new_img, NewFileName);
             }
             else if (ops == "gif"){
-                Bitmap[] bmp_array = new Bitmap[5];
+                string frames = "0";
+                string fps = "1";
+                Console.WriteLine();
 
-                for (int i = 0; i < 5; i++){
-                    Console.WriteLine("{0}/5", i + 1);
-                    bmp_array[i] = voroniser(bmp, dens, ar, xlen, ylen);
+                do{
+                    Console.Write("How many frames?: ");
+                    frames = Console.ReadLine();
+                } while(!(0 < Int32.Parse(frames) && Int32.Parse(frames) <= 120));
+
+                do{
+                    Console.Write("fps?: ");
+                    fps = Console.ReadLine();
+                } while(!(0 < Int32.Parse(fps) && Int32.Parse(fps) <= 60));
+
+                Directory.CreateDirectory("temp");
+
+                for (int i = 0; i < Int32.Parse(frames); i++){
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    Console.WriteLine("{0}/{1}", i + 1, Int32.Parse(frames));
+                    Bitmap temp_bmp = voroniser(bmp, dens, ar, xlen, ylen);
+                    string save = @"temp\" + i + ".png";
+                    temp_bmp.Save(save, ImageFormat.Png);
                 }
-                
-                Console.WriteLine("Creating GIF...");
-                
-                    
 
+                string strCmdText = @"/C ffmpeg -f image2 -i temp\%d.png -r " + fps + @" output\" + filename[0] + dens + ".gif";
+                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
 
+                Console.ReadLine();
+                string[] filePaths = Directory.GetFiles(@"temp\");
+                foreach (string filePath in filePaths){
+                    File.Delete(filePath);
+                }
             }
-            else if (ops == "debug"){
-                Bitmap temp_img = voroniser(bmp, dens, ar, xlen, ylen);
-                new_img = debug_painter(temp_img);
-            }
-            
-            Directory.CreateDirectory("output");
-            new_img.Save(@"output\" + NewFileName);
-
-            Console.WriteLine();
-            Console.WriteLine("All done, image written to {0}", NewFileName);
-            Console.WriteLine("Press Enter to exit.");
-            Console.ReadLine();
-
         }
 
         static Bitmap voroniser(Bitmap bmp, string dens, Tuple<int, int> ar, int xlen, int ylen)
@@ -133,6 +140,17 @@ namespace Triangle
             img = painter(img, vor, colors);
 
             return img;
+        }
+
+        static void save(Bitmap new_img, string NewFileName)
+        {
+            Directory.CreateDirectory("output");
+            new_img.Save(@"output\" + NewFileName);
+
+            Console.WriteLine();
+            Console.WriteLine("All done, image written to {0}", NewFileName);
+            Console.WriteLine("Press Enter to exit.");
+            Console.ReadLine();
         }
 
         //returns a tweaked aspect ratio which determines the size of each cell in the voronoi matrix(mat)
@@ -237,7 +255,7 @@ namespace Triangle
             for (int y = 0; y < height; y++){
                 for (int x = 0; x < width; x++){
                     Point pixel = new Point(x, y);
-                    Color color = bmp.GetPixel(x, y); 
+                    System.Drawing.Color color = bmp.GetPixel(x, y); 
                     Point region = closest_to(pixel, mat, ar, xlen, ylen);
 
                     vor.Add(region, pixel);
@@ -275,7 +293,7 @@ namespace Triangle
                 List<Point> pixels = vor[region];
 
                 r = color[0] / points; g = color[1] / points; b = color[2] / points;
-                Color col = Color.FromArgb(r, g, b);
+                System.Drawing.Color col = System.Drawing.Color.FromArgb(r, g, b);
 
                 foreach (Point pixel in pixels){
                     img.SetPixel(pixel.X, pixel.Y, col);
@@ -285,17 +303,13 @@ namespace Triangle
             return img;
         }
 
-        static Bitmap debug_painter(Bitmap img)
+        static void ClearCurrentConsoleLine()
         {
-            Color col = Color.FromArgb(0, 0, 0);
-
-            for (int y = 0; y < ylen + 1; y++){
-                for (int x = 0; x < xlen + 1; x++){
-                    Point pixel = mat[y, x];
-                    img.SetPixel(pixel.X, pixel.Y, col);
-                }
-            }
-            return img;
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth)); 
+            Console.SetCursorPosition(0, currentLineCursor);
         }
+
     }
 }
