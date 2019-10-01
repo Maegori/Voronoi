@@ -106,20 +106,23 @@ namespace Triangle
                     Console.Write("fps?: ");
                     fps = Console.ReadLine();
                 } while(!(0 < Int32.Parse(fps) && Int32.Parse(fps) <= 60));
-
+                
                 Directory.CreateDirectory("temp");
 
+                Console.WriteLine();
                 for (int i = 0; i < Int32.Parse(frames); i++){
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);
                     ClearCurrentConsoleLine();
-                    Console.WriteLine("{0}/{1}", i + 1, Int32.Parse(frames));
+                    Console.WriteLine("Progress: {0}/{1}", i + 1, Int32.Parse(frames));
                     Bitmap temp_bmp = voroniser(bmp, dens, ar, xlen, ylen);
                     string save = @"temp\" + i + ".png";
                     temp_bmp.Save(save, ImageFormat.Png);
                 }
 
-                string strCmdText = @"/C ffmpeg -f image2 -i temp\%d.png -r " + fps + @" output\" + filename[0] + dens + ".gif";
-                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+                string strCmdText1 = @"/C ffmpeg -v 0 -i temp\%d.png -vf palettegen  temp\palette.png";
+                string strCmdText2 = @"/C ffmpeg -re -thread_queue_size 512 -f image2 -i temp\%d.png -framerate " + fps + @" -i palette.png -lavfi paletteuse -y output\" + filename[0] + dens + ".gif";
+
+                System.Diagnostics.Process.Start("CMD.exe", strCmdText1);
+                System.Diagnostics.Process.Start("CMD.exe", strCmdText2);
 
                 Console.ReadLine();
                 string[] filePaths = Directory.GetFiles(@"temp\");
@@ -305,6 +308,7 @@ namespace Triangle
 
         static void ClearCurrentConsoleLine()
         {
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
             int currentLineCursor = Console.CursorTop;
             Console.SetCursorPosition(0, Console.CursorTop);
             Console.Write(new string(' ', Console.WindowWidth)); 
