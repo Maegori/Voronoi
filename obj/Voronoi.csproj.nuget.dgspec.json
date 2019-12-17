@@ -1,34 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lexj1\\Documents\\python\\Voronoi\\Voronoi.csproj": {}
+    "/home/ra/Documents/projects/Voronoi/Voronoi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lexj1\\Documents\\python\\Voronoi\\Voronoi.csproj": {
+    "/home/ra/Documents/projects/Voronoi/Voronoi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lexj1\\Documents\\python\\Voronoi\\Voronoi.csproj",
+        "projectUniqueName": "/home/ra/Documents/projects/Voronoi/Voronoi.csproj",
         "projectName": "Voronoi",
-        "projectPath": "C:\\Users\\lexj1\\Documents\\python\\Voronoi\\Voronoi.csproj",
-        "packagesPath": "C:\\Users\\lexj1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lexj1\\Documents\\python\\Voronoi\\obj\\",
+        "projectPath": "/home/ra/Documents/projects/Voronoi/Voronoi.csproj",
+        "packagesPath": "/home/ra/.nuget/packages/",
+        "outputPath": "/home/ra/Documents/projects/Voronoi/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lexj1\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/ra/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "netcoreapp2.2": {
             "projectReferences": {}
           }
         },
@@ -39,11 +34,13 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp2.2": {
           "dependencies": {
-            "Microsoft.Experimental.Collections": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[1.0.6-e190117-3, )"
+              "version": "[2.2.0, )",
+              "autoReferenced": true
             },
             "System.Collections": {
               "target": "Package",
@@ -51,13 +48,9 @@
             },
             "System.Drawing.Common": {
               "target": "Package",
-              "version": "[4.5.1, )"
+              "version": "[4.7.0-preview3.19551.4, )"
             },
             "System.IO": {
-              "target": "Package",
-              "version": "[4.3.0, )"
-            },
-            "System.IO.FileSystem": {
               "target": "Package",
               "version": "[4.3.0, )"
             }
@@ -72,12 +65,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.101/RuntimeIdentifierGraph.json"
         }
       }
     }

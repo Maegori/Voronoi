@@ -1,0 +1,10 @@
+/home/ra/Documents/projects/Voronoi/bin/Debug/netcoreapp2.2/Voronoi.deps.json
+/home/ra/Documents/projects/Voronoi/bin/Debug/netcoreapp2.2/Voronoi.runtimeconfig.json
+/home/ra/Documents/projects/Voronoi/bin/Debug/netcoreapp2.2/Voronoi.runtimeconfig.dev.json
+/home/ra/Documents/projects/Voronoi/bin/Debug/netcoreapp2.2/Voronoi.dll
+/home/ra/Documents/projects/Voronoi/bin/Debug/netcoreapp2.2/Voronoi.pdb
+/home/ra/Documents/projects/Voronoi/obj/Debug/netcoreapp2.2/Voronoi.csprojAssemblyReference.cache
+/home/ra/Documents/projects/Voronoi/obj/Debug/netcoreapp2.2/Voronoi.AssemblyInfoInputs.cache
+/home/ra/Documents/projects/Voronoi/obj/Debug/netcoreapp2.2/Voronoi.AssemblyInfo.cs
+/home/ra/Documents/projects/Voronoi/obj/Debug/netcoreapp2.2/Voronoi.dll
+/home/ra/Documents/projects/Voronoi/obj/Debug/netcoreapp2.2/Voronoi.pdb
